@@ -21,6 +21,17 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+#other
+app.json
+
+#expo
+.expo/*
+__generated__
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Gradle
 /build/
 /RNTester/android/app/build/
