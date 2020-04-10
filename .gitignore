@@ -111,3 +111,5 @@ RNTester/Pods/*
 # Visual studio
 .vscode
 .vs
+
+.expo/
