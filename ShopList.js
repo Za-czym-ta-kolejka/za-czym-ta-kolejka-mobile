@@ -101,13 +101,13 @@ export default class ListInlineStylingShowcase extends React.Component {
                       marginTop: 12}} />
                     <View>
                       <View style={styles.details}>
-                        <Text style={styles.text}> Liczba klientów: {item.clientCount} </Text>
+                        <Text style={styles.text}> {item.clientCount} klientów w kolejkce </Text>
                       </View>
                       <View>
-                        <Text style={styles.text}> Czas oczekiwania: {item.waitTime} </Text>
+                        <Text style={styles.text}> {item.waitTime} średni czas oczekiwania </Text>
                       </View>
                       <View>
-                        <Text style={styles.text}> Odległość: {item.proximity} </Text>
+                        <Text style={styles.text}> {item.proximity} od Ciebie </Text>
                       </View>
                     </View>
                   </View>
