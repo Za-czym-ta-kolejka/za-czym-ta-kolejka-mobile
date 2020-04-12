@@ -1,11 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
-import {
-  List,
-  Icon,
-  ListItem,
-  Text
-} from '@ui-kitten/components';
+import {StyleSheet, View, TouchableWithoutFeedback, Text, Image, ScrollView} from 'react-native';
+import { Card, Searchbar  } from 'react-native-paper';
 
 const data = [
   {
@@ -29,68 +24,158 @@ const data = [
     clientCount: 10,
     waitTime: 10,
     proximity: "3km"
+  },
+  {
+    latlng: {
+      latitude: 52.2336275,
+      longitude: 20.9782332,
+    },
+    title: 'Zabka',
+    description: 'Grocery shop',
+    clientCount: 10,
+    waitTime: 10,
+    proximity: "3km"
+  },
+  {
+    latlng: {
+      latitude: 52.2336275,
+      longitude: 20.9782332,
+    },
+    title: 'Zabka',
+    description: 'Grocery shop',
+    clientCount: 10,
+    waitTime: 10,
+    proximity: "3km"
+  },
+  {
+    latlng: {
+      latitude: 52.2336275,
+      longitude: 20.9782332,
+    },
+    title: 'Zabka',
+    description: 'Grocery shop',
+    clientCount: 10,
+    waitTime: 10,
+    proximity: "3km"
   }
 ]
 
 
-const StarIcon = (style) => (
-  <Icon {...style} name='star' />
-);
-
-export const ListItemWithIconShowcase = ({ title, description, index, navigation }) => (
-  <ListItem
-    title={title}
-    description={description}
-    icon={StarIcon}
-    onPress={() => { navigation.navigate('ShopDetails') }}
-  />
-);
-
 export default class ListInlineStylingShowcase extends React.Component {
+  state = {
+    search: '',
+    filteredData: data
+  };
 
-  renderItem = ({ item, index }) => (
-    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('ShopDetails') }}>
-      <View style={styles.mainItem}>
-        <View>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description}>{item.description}</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <Text>{`Dystans: ${item.proximity}  `}</Text>
-          <Text>{`Kolejka: ${item.waitTime}`}</Text>
-        </View>
-      </View>
-      </TouchableWithoutFeedback>
-  );
+  updateSearch = search => {
+    this.setState({ search: search, filteredData: data.filter(function (el) {
+        return search === '' ||
+            el.title.startsWith(search) ||
+            el.description.startsWith(search);
+      })})
+  };
 
   render() {
+    const { filteredData } = this.state;
+
     return (
-      <List
-        contentContainerStyle={styles.contentContainer}
-        data={data}
-        renderItem={this.renderItem}
-      />
+        <View style={styles.container}>
+          <Searchbar style={styles.search}
+              placeholder="Type Here..."
+              onChangeText={this.updateSearch}
+              value={this.state.search}
+          />
+          <ScrollView>
+          {filteredData.map((item, i) => (
+              <TouchableWithoutFeedback key={i} onPress={() => { this.props.navigation.navigate('ShopDetails') }}>
+                <Card style={styles.card}>
+                  <View style={styles.cardtop}>
+                    <Text> {item.title} </Text>
+                    <Text> {item.description} </Text>
+                  </View>
+                  <View style={styles.cardbotttom}>
+                    <Image source={require('./images/shop.png')} resizeMode={'cover'} style={{width: 80,
+                      height: 80,
+                      marginRight: 10,
+                      marginBottom: 12,
+                      marginTop: 12}} />
+                    <View>
+                      <View style={styles.details}>
+                        <Text style={styles.text}> Liczba klientów: {item.clientCount} </Text>
+                      </View>
+                      <View>
+                        <Text style={styles.text}> Czas oczekiwania: {item.waitTime} </Text>
+                      </View>
+                      <View>
+                        <Text style={styles.text}> Odległość: {item.proximity} </Text>
+                      </View>
+                    </View>
+                  </View>
+                </Card>
+              </TouchableWithoutFeedback>
+          ))}
+          </ScrollView>
+        </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  contentContainer: { paddingHorizontal: 8 },
-  title: {
-    fontSize: 18
-  },
-  description: {
-    color: "#808080"
-  },
-  mainItem: {
-    flexDirection: "row",
-    paddingTop: "3%",
-    backgroundColor: 'white',
-    marginVertical: 8,
-    marginHorizontal: 3,
-    justifyContent: "space-between"
-  },
-  listItem: {
+  search: {
+    margin: 10,
 
-  }
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+
+    elevation: 8,
+  },
+  text: {
+    padding: 10,
+  },
+  cardtop: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: '#ECF0F1',
+    borderBottomWidth: 2,
+    paddingVertical: 5,
+  },
+  cardbotttom: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+  },
+  card: {
+    marginHorizontal: 10,
+    marginVertical: 10,
+    padding: 10,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+
+    elevation: 8,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
