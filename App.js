@@ -16,7 +16,7 @@ function App() {
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen screenOptions={{ headerShown: false }} name="MapView" component={MapView} />
+            <Stack.Screen options= {{headerShown: false}} name="MapView" component={MapView} />
             <Stack.Screen name="ShopList" component={ShopList} />
             <Stack.Screen name="ShopDetails" component={ShopDetails} />
           </Stack.Navigator>

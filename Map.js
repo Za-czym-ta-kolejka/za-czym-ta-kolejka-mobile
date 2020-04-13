@@ -1,18 +1,14 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 
-import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, TouchableWithoutFeedback} from 'react-native';
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
-import {
-    Button,
-    Layout,
-  } from '@ui-kitten/components';
+import { Card, Searchbar  } from 'react-native-paper';
 
-
-markers = [
+const markers = [
     {
         latlng: {
             latitude: 52.2336275,
@@ -62,6 +58,7 @@ export default class MyMapView extends React.Component {
                     region={this.state.mapRegion}
                     provider="google"
                     ref={(ref) => { this.mapRef = ref }}
+                    showsUserLocation = {true}
                     >
                     {markers.map(marker => (
                         <Marker
@@ -72,9 +69,18 @@ export default class MyMapView extends React.Component {
                         />
                     ))}
                 </MapView>
-                <View style={styles.buttonsContainer}>
-                    <Button onPress={() => this.props.navigation.navigate('ShopList')}>Lista sklepów</Button>
-                </View>
+                <Searchbar style={styles.search}
+                           placeholder="Type Here..."
+                           onChangeText={this.updateSearch}
+                           value={this.state.search}
+                />
+                <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('ShopList')}>
+                    <Card style={styles.buttonsContainer} >
+                        <View style={styles.cardContainer}>
+                            <Text>Lista sklepów</Text>
+                        </View>
+                    </Card>
+                </TouchableWithoutFeedback>
             </View>
         );
     }
@@ -83,23 +89,32 @@ export default class MyMapView extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        position: "relative",
+
     },
     mapStyle: {
-        // position: 'absolute',
-        flex: 1,
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        width: '100%',
+        height: '100%',
+    },
+    search: {
+        margin: 10,
+        position: "absolute",
+        top: '5%',
     },
     buttonsContainer: {
         position: "absolute",
-        bottom: 50,
-        left: 10,
-        flexDirection: 'row',
-        paddingVertical: 16,
-        margin: 8,
+        marginHorizontal: 10,
+        width: '80%',
+        height: '8 %',
+        bottom: '8%',
+    },
+    cardContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
     }
 });
