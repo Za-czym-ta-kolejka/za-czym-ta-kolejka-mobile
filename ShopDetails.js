@@ -35,58 +35,65 @@ export default class ShopDetails extends React.Component {
         );
 
         return (
-            <ScrollView contentContainerStyle={styles.container}>
-                <TouchableWithoutFeedback>
+            <ScrollView >
+                <View contentContainerStyle={styles.container}>
+                    <TouchableWithoutFeedback>
                     <Card style={styles.card}>
-                        <View style={styles.shopmain}>
-                            <View style={styles.cardtop}>
-                                <Text> {item.title} </Text>
-                                <Text> {item.description} </Text>
-                            </View>
-                            <View style={styles.cardbotttom}>
-                                <Image source={{uri: 'https://unsplash.it/300/300/?random&__id=$1'}}
-                                       resizeMode={'cover'} style={{
-                                    width: 80,
-                                    height: 80,
-                                    marginRight: 10,
-                                    marginBottom: 12,
-                                    marginTop: 12
-                                }}/>
-                                <View>
-                                    <View style={styles.details}>
-                                        <Text style={styles.text}> {item.clientCount} klientów w kolejkce </Text>
-                                    </View>
+                            <View style={styles.shopmain}>
+                                <View style={styles.cardtop}>
+                                    <Text> {item.title} </Text>
+                                    <Text> {item.description} </Text>
+                                </View>
+                                <View style={styles.cardbotttom}>
+                                    <Image source={{uri: 'https://unsplash.it/300/300/?random&__id=$1'}}
+                                           resizeMode={'cover'} style={{
+                                        width: 80,
+                                        height: 80,
+                                        marginRight: 10,
+                                        marginBottom: 12,
+                                        marginTop: 12
+                                    }}/>
                                     <View>
-                                        <Text style={styles.text}> {item.waitTime} średni czas oczekiwania </Text>
-                                    </View>
-                                    <View>
-                                        <Text style={styles.text}> {item.proximity} od Ciebie </Text>
+                                        <View style={styles.details}>
+                                            <Text style={styles.text}> {item.clientCount} klientów w kolejkce </Text>
+                                        </View>
+                                        <View>
+                                            <Text style={styles.text}> {item.waitTime} średni czas oczekiwania </Text>
+                                        </View>
+                                        <View>
+                                            <Text style={styles.text}> {item.proximity} od Ciebie </Text>
+                                        </View>
                                     </View>
                                 </View>
                             </View>
-                        </View>
-                    </Card>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <Card style={styles.card}>
-                        <View style={styles.photos}>
-                            {photos.map(uri => (
-                                <View key={uri} style={styles.item}>
-                                    <Image source={{uri}} style={styles.photo}/>
+                        </Card>
+                    </TouchableWithoutFeedback>
+                    <ScrollView>
+                        <TouchableWithoutFeedback>
+                            <Card style={styles.card}>
+                                <View style={styles.cardtop}>
+                                    <Text> Ostatnie informacje o kolejce </Text>
                                 </View>
-                            ))}
-                        </View>
-                    </Card>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <Card style={styles.card}>
-                        <View style={styles.buttonContainer}>
-                            <Text>
-                                Prześlij zdjęcie
-                            </Text>
-                        </View>
-                    </Card>
-                </TouchableWithoutFeedback>
+                                <View style={styles.photos}>
+                                    {photos.map(uri => (
+                                        <View key={uri} style={styles.item}>
+                                            <Image source={{uri}} style={styles.photo}/>
+                                        </View>
+                                    ))}
+                                </View>
+                            </Card>
+                        </TouchableWithoutFeedback>
+                    </ScrollView>
+                    <TouchableWithoutFeedback>
+                        <Card style={styles.card}>
+                            <View style={styles.buttonContainer}>
+                                <Text>
+                                    Prześlij zdjęcie
+                                </Text>
+                            </View>
+                        </Card>
+                    </TouchableWithoutFeedback>
+                </View>
             </ScrollView>
         );
     }
@@ -108,37 +115,36 @@ const styles = StyleSheet.create({
 
         elevation: 8,
     },
-    shopmain: {
-        text: {
-            padding: 10,
-        },
-        cardtop: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            borderBottomColor: '#ECF0F1',
-            borderBottomWidth: 2,
-            paddingVertical: 5,
-        },
-        cardbotttom: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingVertical: 5,
-        },
-        container: {
-            flex: 1,
-            justifyContent: 'center',
-            backgroundColor: '#ecf0f1',
-            padding: 8,
-        },
+    text: {
+        padding: 10,
+    },
+    cardtop: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomColor: '#ECF0F1',
+        borderBottomWidth: 2,
+        paddingVertical: 5,
+    },
+    cardbotttom: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 5,
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#ecf0f1',
+        padding: 8,
     },
     photos: {
-        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
+        height: '100%',
     },
     photo: {
+        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: 4,
@@ -152,7 +158,5 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
-        height: '100%',
     }
 });
